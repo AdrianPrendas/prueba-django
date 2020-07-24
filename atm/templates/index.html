@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    ATM
+{% endblock %}
+
+{% block content %}
+    <center>
+    <h1>ATM</h1>
+        <hr>
+        <table border="2">
+            <caption><strong>{{ username | upper}}</strong></caption>
+            <thead>
+                <tr>
+                    <th>amount</th>
+                    <th>date</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.amount }}</td>
+                    <td>{{ log.date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+    <form action="{% url 'debit' %}" method="POST">
+        {% csrf_token %}
+        <input type="number" placeholder="cantidad a dispensar" name="amount">
+        <input type="submit" value="enviar">
+    </form>
+        <h1><a href="{% url 'logout' %}">Logout</a></h1>
+</center>
+{% endblock %}
+
+
+
+
+
+
+

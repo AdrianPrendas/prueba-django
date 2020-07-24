@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Debit
+{% endblock %}
+
+{% block content %}
+    <center>
+
+    <h1><a href="{% url 'index' %}">Index</a></h1>
+        <hr>
+    <h1>Cantidad ingresada: {{ input }}</h1>
+    {% if err %}
+        <h2 style="color:red">{{ err }}</h2>
+    {% endif %}
+
+    <h1 style="color:blue">{{ detail }}</h1>
+        <hr>
+    <h1><a href="{% url 'logout' %}">Logout</a></h1>
+    </center>
+{% endblock %}
+
+
+
