@@ -28,24 +28,31 @@ def debit(request):
         BILS = {10000, 5000, 2000}
 
         for b in BILS:
-            if amount / b > 0:
-                result[b] = int(amount / b)
-                amount -= result[b] * b
-            else:
-                result[b] = 0
+            result[b] = int(amount / b) # it takes just the integer side of a float tipe
+            amount -= result[b] * b
+
 
         if amount == 0:
             string = "Su dinero es "
             for k, v in result.items():
-                string += f"{v} {singular_plural(v)} de {k}, "
+                if v:
+                    string += f"{v} {singular_plural(v)} de {k}, "
 
             Transaction.objects.create(
                 user=User.objects.get(id=request.user.id),
                 amount=input_data
             )
 
+
+            arr = string[:-2].split(",")
+            if len(arr) > 1:
+                string = ",".join(arr[:-1])
+                string = f"{string} y {arr[len(arr)-1]}"
+            else:
+                string = string[:-2]
+
             context = {
-                "detail": string[:-2],
+                "detail": string,
                 "input": input_data,
             }
 
